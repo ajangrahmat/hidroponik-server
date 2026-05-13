@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Monitoring IoT</title>
+    <style>
+        body {
+            background-color: #e8d8d8;
+        }
+        .warna-biru {
+            color: blue;
+        }
+        .warna-merah {
+            color: red;
+        }
+        .warna-hijau {
+            color: green;
+        }
+        .shadow-hitam {
+            text-shadow: 2px 2px 4px black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="warna-hijau">Monitoring <strong class="warna-biru shadow-hitam">Hidroponik</strong></h1>
+
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>DATETIME</th>
+            <th>NUTRISI</th>
+            <th>SUHU</th>
+            <th>KELEMBABAN</th>
+        </thead>
+        <tbody>
+            <% data.forEach(item=> { %>
+                <tr>
+                    <td><%= item.id%></td>
+                    <td><%= item.datetime%></td>
+                    <td><%= item.nutrisi%></td>
+                    <td><%= item.suhu%></td>
+                    <td><%= item.kelembaban%></td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

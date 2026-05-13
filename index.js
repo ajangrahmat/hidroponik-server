@@ -1,26 +1,33 @@
 const express = require("express");
 const app = express();
+const mysql = require("mysql2");
 
-let nutrisi = 900;
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "hidroponik"
+});
+
+let nutrisi = 1200;
 const batas = 1000;
 
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
-  res.send("Monitoring Hidroponik Aktif");
+  db.query("SELECT * FROM data_sensor", (err, result) => {
+    res.render("index", {
+      data: result
+    });
+  });
 });
 
-app.get("/status", (req, res) => {
-  if (nutrisi < batas) {
-    res.send("Pompa ON");
-  } else {
-    res.send("Pompa OFF");
-  }
-});
 
-app.get("/sensor", (req, res) => {
-  res.send(`
-    <h1>Monitoring Hidroponik</h1>
-    <p>Nutrisi: 900</p>
-  `);
+app.get("/data", (req, res) => {
+  res.render("data", {
+    status: "OFF",
+    nutrisi: nutrisi
+  });
 });
 
 app.listen(3000);
