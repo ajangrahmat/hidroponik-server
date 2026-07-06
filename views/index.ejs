@@ -3,49 +3,77 @@
 
 <head>
     <title>Monitoring IoT</title>
-    <style>
-        body {
-            background-color: #e8d8d8;
-        }
-        .warna-biru {
-            color: blue;
-        }
-        .warna-merah {
-            color: red;
-        }
-        .warna-hijau {
-            color: green;
-        }
-        .shadow-hitam {
-            text-shadow: 2px 2px 4px black;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1 class="warna-hijau">Monitoring <strong class="warna-biru shadow-hitam">Hidroponik</strong></h1>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Hidroponik</span>
+        </div>
+    </nav>
 
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>DATETIME</th>
-            <th>NUTRISI</th>
-            <th>SUHU</th>
-            <th>KELEMBABAN</th>
-        </thead>
-        <tbody>
-            <% data.forEach(item=> { %>
-                <tr>
-                    <td><%= item.id%></td>
-                    <td><%= item.datetime%></td>
-                    <td><%= item.nutrisi%></td>
-                    <td><%= item.suhu%></td>
-                    <td><%= item.kelembaban%></td>
-                </tr>
-                <% }) %>
-        </tbody>
-    </table>
+    <div class="container mb-5">
 
+        <div class="card mt-5" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Pompa</h5>
+                <form class="d-grid gap-2" action="/publish" method="POST">
+                    <input type="hidden" name="status" value="ON">
+                    <input type="hidden" name="aktuator" value="pompa">
+                    <button class="btn btn-success" type="submit">ON</button>
+                </form>
+                <form class="d-grid gap-2 mt-3" action="/publish" method="POST">
+                    <input type="hidden" name="status" value="OFF">
+                    <input type="hidden" name="aktuator" value="pompa">
+                    <button class="btn btn-danger" type="submit">OFF</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <table class="table table-striped">
+            <thead>
+                <th>ID</th>
+                <th>DATETIME</th>
+                <th>NUTRISI</th>
+                <th>SUHU</th>
+                <th>KELEMBABAN</th>
+            </thead>
+            <tbody>
+                <% data.forEach(item=> { %>
+                    <tr>
+                        <td>
+                            <%= item.id%>
+                        </td>
+                        <td>
+                            <%= item.datetime%>
+                        </td>
+                        <td>
+                            <%= item.nutrisi%>
+                        </td>
+                        <td>
+                            <%= item.suhu%>
+                        </td>
+                        <td>
+                            <%= item.kelembaban%>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
